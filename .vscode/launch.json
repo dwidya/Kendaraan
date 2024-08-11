@@ -1,0 +1,14 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Spring Boot-KendaraanREstApiApplication<kendaraan>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "Data.kendaraan.KendaraanREstApiApplication",
+            "projectName": "kendaraan",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        }
+    ]
+}

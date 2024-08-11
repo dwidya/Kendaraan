@@ -1,0 +1,84 @@
+:root {
+    --white: #ffffff;
+    --red : hwb(0 38% 5%) ;
+    --blue : #1519ff ;
+    --black : hsl(0, 0%, 0%) ;
+}
+
+body {
+    background:  linear-gradient(to right, #fdfdfd, hsl(0, 0%, ));
+} 
+
+.container {
+    
+    margin-top: 10px;
+    border-radius: 20px;
+    background-color: var(--white);
+    padding: 25px;  
+    box-shadow: 3px 3px 10px rgba(0, 0, 0,);
+    
+}
+
+.container table {
+    border-color: var(--black);
+}
+
+.container table thead,
+.container table tfoot {
+    background: var(--blue);
+    color: var(--white);
+}
+
+.container table thead tr th ,
+.container table tfoot tr th {
+    border-right-color: var(--white);   
+}
+
+.container table thead tr th :first-child ,
+.container table tfoot tr th  :first-child {
+    border-left-color: var(--blue);   
+}
+
+.container table thead tr th :last-child ,
+.container table tfoot tr th  :last-child {
+    border-right-color: var(--blue);   
+}
+
+
+table thead tr th, 
+table tbody tr th,
+table tfoot tr th{
+    text-align: left !important ; 
+}
+
+table thead tr th :last-child {
+    pointer-events: none ;
+}
+
+table thead tr th :last-child , dt-cloumn-order {
+
+    display: none;
+    
+}
+
+.bgred {
+    background-color: var(--red);
+}
+
+.p {
+    padding: 20px;
+}
+
+.btn {
+    display: flex;
+    justify-content: end;
+    gap: 15px ;
+
+}
+
+.pbtn {
+    margin-top: 10px;
+    padding: 10px 20px ;
+    width: 150px;
+    border-radius: 10px;
+}
