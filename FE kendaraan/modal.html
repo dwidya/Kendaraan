@@ -19,9 +19,8 @@
                 <input type="text" id="noRegistrasi">
             </div>
             <div>
-                <p style="height: 10px; ;">Tahun Pembuatan</p>
-                <input  type="text" class="form-control" id="tahunPembuatan" maxlength="4" pattern="\d{4}" title="Masukkan tahun dengan 4 digit">
-
+                <p style="height: 10px;">Tahun Pembuatan</p>
+                <input type="text" class="form-control" id="tahunPembuatan" maxlength="4" pattern="\d{4}" title="Masukkan tahun dengan 4 digit">
             </div>
         </div>
 
@@ -76,59 +75,68 @@
     </div> 
     
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="app.js"></script>
     <script>
         document.getElementById('submitBtn').addEventListener('click', function(event) {
-        event.preventDefault();
+            event.preventDefault();
 
-        
-        const noRegistrasi = document.getElementById('noRegistrasi').value;
-        const tahunPembuatan = document.getElementById('tahunPembuatan').value;
-        const namaPemilik = document.getElementById('namaPemilik').value;
-        const kapasitasSilinder = document.getElementById('kapasitasSilinder').value;
-        const merkKendaraan = document.getElementById('merkKendaraan').value;
-        const warnaKendaraan = document.getElementById('warnaKendaraan').value;
-        const alamat = document.getElementById('alamat').value;
-        const bahanBakar = document.getElementById('bahanBakar').value;
+            const noRegistrasi = document.getElementById('noRegistrasi').value;
+            const tahunPembuatan = document.getElementById('tahunPembuatan').value;
+            const namaPemilik = document.getElementById('namaPemilik').value;
+            const kapasitasSilinder = document.getElementById('kapasitasSilinder').value;
+            const merkKendaraan = document.getElementById('merkKendaraan').value;
+            const warnaKendaraan = document.getElementById('warnaKendaraan').value;
+            const alamat = document.getElementById('alamat').value;
+            const bahanBakar = document.getElementById('bahanBakar').value;
 
-        
-        const data = {
-            noRegistrasi: noRegistrasi,
-            tahunPembuatan: tahunPembuatan,
-            namaPemilik: namaPemilik,
-            kapasitasSilinder: kapasitasSilinder,
-            merkKendaraan: merkKendaraan,
-            warnaKendaraan: warnaKendaraan,
-            alamat: alamat,
-            bahanBakar: bahanBakar
-        };
+            const data = {
+                noRegistrasi: noRegistrasi,
+                tahunPembuatan: tahunPembuatan,
+                namaPemilik: namaPemilik,
+                kapasitasSilinder: kapasitasSilinder,
+                merkKendaraan: merkKendaraan,
+                warnaKendaraan: warnaKendaraan,
+                alamat: alamat,
+                bahanBakar: bahanBakar
+            };
 
-        
-        fetch('http://localhost:8080/kendaraan/save', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(data)
-        })
-        .then(response => {
-            if (!response.ok) {
-                throw new Error(`HTTP error! status: ${response.status}`);
-            }
-            return response.json();
-        })
-        .then(data => {
-            console.log('Success:', data);
-            alert('Data berhasil disimpan!');
-            
-            
-            window.location.href = 'index.html';
-        })
-        .catch(error => {
-            console.error('Error:', error);
-            alert('Terjadi kesalahan saat menyimpan data.');
+            // Cek apakah No Registrasi sudah ada
+            fetch(`http://localhost:8080/kendaraan/existsByName/${namaPemilik}`)
+                .then(response => response.json())
+                .then(exists => {
+                    if (exists) {
+                        alert("Data dengan No Registrasi ini sudah ada!!.");
+                    } else {
+                        // Jika No Registrasi belum ada, kirim request ke endpoint /save
+                        fetch('http://localhost:8080/kendaraan/save', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify(data)
+                        })
+                        .then(response => {
+                            if (!response.ok) {
+                                throw new Error(`Nama Pemilik gagal disimpan. Status: ${response.status}`);
+                            }
+                            return response.json();
+                        })
+                        .then(data => {
+                            console.log('Success:', data);
+                            alert('Data berhasil disimpan!');
+
+                            window.location.href = 'index.html';
+                        })
+                        .catch(error => {
+                            console.error('Error:', error);
+                            alert('Error: ' + error.message);
+                        });
+                    }
+                })
+                .catch(error => {
+                    console.error('Error checking No Registrasi:', error);
+                    alert('Error checking No Registrasi: ' + error.message);
+                });
         });
-    });
     </script>
 </body>
 </html>

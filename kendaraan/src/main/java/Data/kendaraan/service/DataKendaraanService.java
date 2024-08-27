@@ -20,4 +20,8 @@ public interface DataKendaraanService {
     DataKendaraan update(DataKendaraanUpdateReq req);
 
     void delete(String noRegistrasi);
+
+    boolean existsByNoRegistrasi(String noRegistrasi);
+
+    boolean existsBynamaPemilik(String noRegistrasi);
 }

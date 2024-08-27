@@ -3,6 +3,7 @@ package Data.kendaraan.entity;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
 @Entity
@@ -28,6 +29,20 @@ public class DataKendaraan {
     private String warnaKendaraan;
 
     private String bahanBakar;
+
+    
+    @Id
+    private Long id;
+
+
+    @NotNull
+    public String getNoRegistrasi() {
+        return noRegistrasi;
+    }
+
+    public void setNoRegistrasi(String noRegistrasi) {
+        this.noRegistrasi = noRegistrasi;
+    }
 }
 
 
